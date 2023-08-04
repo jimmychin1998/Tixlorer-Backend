@@ -1,0 +1,102 @@
+﻿@model TixlorerCore.Models.Product
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<head>
+    <style>
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <h1 class="text-center">新增產品</h1>
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @*            <div class="form-group">
+                <label asp-for="PId" class="control-label"></label>  (格式：P + 年份末兩位 + 月份 + 流水號(4位)，如：P23060001)
+                <input asp-for="PId" class="form-control" />
+                <span asp-validation-for="PId" class="text-danger"></span>
+                <br /><br />
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TicketId" class="control-label"></label>  (格式：T + 年份末兩位 + 月份 + 流水號(4位)，如：T23060001)
+                    <input asp-for="TicketId" class="form-control" />
+                    <span asp-validation-for="TicketId" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="GroupId" class="control-label"></label>  (可空值)
+                    <input asp-for="GroupId" class="form-control" />
+                    <span asp-validation-for="GroupId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>  (所含票券的價格總和)
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DiscountPrice" class="control-label"></label>
+                    <input asp-for="DiscountPrice" class="form-control" />
+                    <span asp-validation-for="DiscountPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Desc" class="control-label"></label>  (可空值)
+                    <input asp-for="Desc" class="form-control" />
+                    <span asp-validation-for="Desc" class="text-danger"></span>
+                </div>
+                <div>
+                    @*      <div class="form-group">
+                    <label asp-for="Image" class="control-label"></label>  (可空值)
+                    <input asp-for="Image" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>*@
+                    <div class="form-group">
+                        <label asp-for="StockNumber" class="control-label"></label>
+                        <input asp-for="StockNumber" class="form-control" />
+                        <span asp-validation-for="StockNumber" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="OnShelf" class="control-label"></label>  (可空值)
+                        <input asp-for="OnShelf" class="form-control" />
+                        <span asp-validation-for="OnShelf" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="OffShelf" class="control-label"></label>  (可空值)
+                        <input asp-for="OffShelf" class="form-control" />
+                        <span asp-validation-for="OffShelf" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="State" class="control-label"></label> (0=未上架、1=已上架、2=已下架)
+                        <input asp-for="State" class="form-control" />
+                        <span asp-validation-for="State" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group; text-center" style="margin-top:20px">
+                        <input type="submit" value="確定新增" class="btn btn-outline-success" />
+                        <a asp-action="List" class="btn btn-outline-danger">返回商品管理頁面</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,322 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<body>
+
+    <div class="" id="situation">
+        <!--頂部(header)顯示區域-->
+
+        <div class="bk-herder relative header-section">
+
+            <div class="bk-herder-logo" style="padding-left: 220px;">
+                <img src="~/images/Tixplorer Logo.png" style="width:200px; position:absolute;left:10px;top:10px;">
+                後臺管理系統
+            </div>
+            <div class="operate-header">
+                <div class="" id="dropdown_menu">
+                    <ul class="clearfix">
+                        <li></li>
+                    </ul>
+                </div>
+
+                <div class="bk-settings-section">
+                    <div class="headerUser">
+                        <a class=""
+                           href="javascript:void(0)"
+                           data-position="bottom"
+                           data-type="arrow">
+                            歡迎您，XX
+                        </a>
+                    </div>
+                    <div class="skin-section">
+                        <a href="javascript:void(0)"
+                           class="skin-btn clickBombbox iconfont icon-pifushezhi"
+                           id="skin-btn"></a>
+                        <div class="Bombbox">
+                            <ul class="skin-list">
+                                <li>
+                                    <a class="colorpick-btn"
+                                       href="javascript:void(0)"
+                                       data-val="black"
+                                       id="default"
+                                       style="background-color: #222a2d"></a>
+                                </li>
+                                <li>
+                                    <a class="colorpick-btn"
+                                       href="javascript:void(0)"
+                                       data-val="blue"
+                                       style="background-color: #438eb9"></a>
+                                </li>
+                                <li>
+                                    <a class="colorpick-btn"
+                                       href="javascript:void(0)"
+                                       data-val="green"
+                                       style="background-color: #72b63f"></a>
+                                </li>
+                                <li>
+                                    <a class="colorpick-btn"
+                                       href="javascript:void(0)"
+                                       data-val="gray"
+                                       style="background-color: #219658"></a>
+                                </li>
+                                <li>
+                                    <a class="colorpick-btn"
+                                       href="javascript:void(0)"
+                                       data-val="red"
+                                       style="background-color: #ff6868"></a>
+                                </li>
+                                <li>
+                                    <a class="colorpick-btn"
+                                       href="javascript:void(0)"
+                                       data-val="purple"
+                                       style="background-color: #6f036b"></a>
+                                </li>
+                                <li>
+                                    <a class="colorpick-btn"
+                                       href="javascript:void(0)"
+                                       data-val="white"
+                                       style="
+                            background-color: #ffffff;
+                            border: 1px solid #dddddd;
+                            color: #333333;
+                          "></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="skin-section">
+                        <a href="javascript:void(0)"
+                           style="display: block; text-align: center"
+                           onclick="dropout() ">登出</a>
+                    </div>
+                    <a href="javascript:void(0)"
+                       class="radius roll-right fullscreen"
+                       id="fullscreen">
+                        <i class="iconfont icon-msnui-fullscreen"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--Main跟Aside顯示區域-->
+        <!--Container為配合加入BootStrap整理版面使用，d-flex為避免子畫面物件跑至畫面最下方使用-->
+        <div class="bk-contents container content-section" style="margin:0px;padding:0px">
+            <!--欄目(Aside)顯示區域-->
+            <div class="bk-con-menu d-block" id="bk-con-menu">
+                <a id="js-tabNav-prev"
+                   class="radius btn-default left_roll"
+                   href="javascript:void(0);">
+                    <i class="iconfont icon-zuoshuangjiantou"></i>
+                </a>
+                <div class="breadcrumb d-block" id="breadcrumb">
+                    <!--style="padding-left:0;"用來修正bootstrap預設標籤ul的屬性，以此修正左側菜單欄目跑版的問題-->
+                    <ul class="clearfix menu-section menulist" id="menu-section" style="padding-left:0;"></ul>
+                </div>
+                <a id="js-tabNav-next"
+                   class="radius btn-default right_roll"
+                   href="javascript:void(0);">
+                    <i class="iconfont icon-youshuangjiantou"></i>
+                </a>
+            </div>
+            <!--子畫面(main)顯示區域-->
+            <!--id="iframe_box"為該樣板修正子畫面用的id，勿動-->
+            <div class="bk-con-message message-section" id="iframe_box">
+
+            </div>
+            <!--分頁選項顯示區域(footer)-->
+            <div class="bk-footer footer-section">
+                <div class="tab-column clearfix" id="tab-column">
+                    <ul class="tab-navigation" id="tab-navigation">
+                        <!--分頁選項區域-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="~/js/jquery.cookie.js" type="text/javascript"></script>
+<script src="~/js/jquery.nicescroll.js" type="text/javascript"></script>
+<script src="~/js/BKframe.js" type="text/javascript"></script>
+<script src="~/js/layer/layer.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+
+
+<script>
+
+    var data = [
+        {
+            id: 2, //預設首頁id為2，不然可能出錯(暫無功能)
+            pid: 0,
+            url: "/Staff/Login", //首頁網址自訂，但需要與data內的homepage相通(暫無功能)
+            // icon: "iconfont icon-home",
+            icon: "iconfont icon-home",
+            name: "系統首頁",
+        },
+        {
+            id: 3,
+            pid: 0,
+            url: "/Staff/PersonDataModify",
+            icon: "iconfont icon-iconsp2",
+            name: "個人資料修改",
+        },
+        {
+            id: 4,
+            pid: 0,
+            url: "/Staff/List",
+            icon: "iconfont icon-iconsp2",
+            name: "員工資料管理",
+        },
+        {
+            id: 5,
+            pid: 0,
+            url: "/Destination/List",
+            icon: "iconfont icon-iconsp2",
+            name: "目的地管理系統",
+        },
+        {
+            id: 6,
+            pid: 0,
+            url: "/Member/List",
+            icon: "iconfont icon-iconsp2",
+            name: "會員資料管理",
+        },
+        {
+            id: 7,
+            pid: 0,
+            url: "/Ticket/List",
+            icon: "iconfont icon-iconsp2",
+            name: "票券管理系統",
+        },
+        {
+            id: 8,
+            pid: 0,
+            url: "",
+            icon: "iconfont icon-suoshuzhiwei",
+            name: "商品管理系統",
+        },
+
+        {
+            id: 9,
+            pid: 0,
+            url: "/Order/List",
+            icon: "iconfont icon-dizhi",
+            name: "訂單管理系統",
+        },
+        {
+            id: 10,
+            pid: 0,
+            url: "",
+            icon: "iconfont icon-xiangmuguanli",
+            name: "紅利管理系統",
+        },
+        {
+            id: 11,
+            pid: 0,
+            url: "/Suppliers/List",
+            icon: "iconfont icon-icon-test",
+            name: "廠商管理系統",
+        },
+        {
+            id: 12,
+            pid: 0,
+            url: "",
+            icon: "iconfont icon-icon-test",
+            name: "網頁資訊維護",
+        },
+        {
+            id: 21,
+            pid: 8,
+            url: "/Product/List",
+            icon: "",
+            name: "商品資料管理",
+        },
+        {
+            id: 22,
+            pid: 8,
+            icon: "",
+            url: "/GroupProduct/List",
+            name: "商品群組管理",
+        },
+        {
+            id: 23,
+            pid: 12,
+            url: "pages.html",
+            icon: "",
+            name: "最新商品",
+        },
+        {
+            id: 24,
+            pid: 12,
+            url: "pages.html",
+            icon: "",
+            name: "推薦商品",
+        },
+        {
+            id: 25,
+            pid: 10,
+            url: "/Coupon/List",
+            icon: "",
+            name: "優惠券管理",
+        },
+        {
+            id: 26, 
+            pid: 10,
+            url: "/CouponUseRecord/List",
+            icon: "",
+            name: "優惠券交易紀錄",//紀錄優惠券的使用紀錄
+        },
+        {
+            id: 27,
+            pid: 10,
+            url: "/BonusPointRecord/List",
+            icon: "",
+            name: "點數交易紀錄",//紀錄點數的取得、使用紀錄
+        },
+
+    ];
+    $(function () {
+        $("#situation").BKframe({
+            data: data, //用於儲存左側欄目功能的資料集合
+            menuopt: "click", //点击菜单栏显示模式'click'和'hover'
+            boxname: ".Bombbox", //弹框模块
+            bkposition: "left", //菜单栏显示的方式，现有左侧列表展示和顶部列表展示方式两种
+            slide: "#breadcrumb", //设置菜单栏目样式属性
+            cookieDate: 7, //设置皮肤显示时间（天单位）
+            rightclick: true, //是否启用右键功能(为true是右键失效，为false时右键显示)
+            minStatue: false, //设置默认是否显示菜单栏（true为隐藏/false为显示）
+            homepage: "/Staff/Login", //預設首頁網址，需與data內的id=2的url資料相同(暫無功能)
+            scrollbar: function (e) {
+                e.niceScroll({
+                    cursorcolor: "#dddddd",
+                    cursoropacitymax: 1,
+                    touchbehavior: false,
+                    cursorwidth: "3px",
+                    cursorborder: "0",
+                    cursorborderradius: "3px",
+                });
+            }, //自定义滚动样式(可以自己写也可以用第三方插件)
+            expand: function (thisBox, settings) {
+                settings.scrollbar($(settings.slide)); //设置显示弹框模块是否需要滚动（自定义）
+                settings.loading =
+                    '<div class="loader-inner ball-spin-fade-loader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>'; //定义加载动画
+            }, //自定义方法
+        });
+    });
+    //退出系统
+    function dropout() {
+        layer.confirm(
+            "是否确定退出系统？",
+            {
+                btn: ["是", "否"], //按钮
+                icon: 1,
+            },
+            function () {
+                location.href = "login.html";
+            }
+        );
+    }
+</script>

@@ -1,0 +1,177 @@
+﻿@model TixlorerCore.Models.StaffWrapper
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@section styles{
+
+    <style>
+        .form-control {
+            position: relative;
+            width: 164px;
+            height: 35px;
+            left: 50%;
+            transform: translate(-50%,0);
+        }
+    </style>
+
+}
+@{
+    //格式化日期相關參數，指定格式為yyyy-MM-dd，因為html標籤type="date"只吃這個格式
+    string birthday = string.Format("{0:yyyy-MM-dd}", Model.Birthday);
+    string DateOfEmployment = string.Format("{0:yyyy-MM-dd}", Model.DateOfEmployment);
+    string TerminationDate = null;
+    if (Model.TerminationDate != null)
+    {
+        TerminationDate = string.Format("{0:yyyy-MM-dd}", Model.TerminationDate);
+    }
+    //初始化日期相關選擇項目最大可選天數
+    string TimeNow = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+    //初始化日期相關選擇項目最大可選天數，值為當前年分+1
+    string DOEMaxdate = (DateTime.Now.Year + 1) + "-" + string.Format("{0:MM-dd}", DateTime.Now);
+
+}
+<div class="container align-center" style="width:100%;height:100%">
+    <div class="row mx-auto" style="position:relative;top:30px">
+        <h2 class="mb-3">編輯員工資料</h2>
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div class="form-horizontal d-flex">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label class="control-label">員工編號</label> @*Label標籤產生*@
+                        <input asp-for="SId" class="form-control" readonly="readonly" unselectable="on" style="background:lightgray"/> @*TextBox標籤產生*@
+                        <span asp-validation-for="SId" class="text-danger"></span> @*ModelInVlid錯誤訊息位置*@
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">員工帳號</label>
+                        <input asp-for="Account" class="form-control" />
+                        <span asp-validation-for="Account" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">員工密碼</label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">員工姓名</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">性別</label><br />
+                        <span class="mx-3">@Html.RadioButton("Sex", "0", true , new{})男</span>
+                        <span class="mx-3">@Html.RadioButton("Sex", "1", false , new{})女</span>
+                        <span asp-validation-for="Sex" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">身分證字號</label>
+                        <input asp-for="IdNumber" class="form-control" />
+                        <span asp-validation-for="IdNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">生日</label>
+                        <input type="date" id="Birthday" name="Birthday" class="form-control" value=@birthday min="1923-01-01" max=@TimeNow />
+                        <spanasp-validation-for ="Birthday" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label class="control-label">聯絡電話</label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">電子信箱</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="control-label">居住地址</label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">所屬部門</label>
+                        <input asp-for="Department" class="form-control" />
+                        <span asp-validation-for="Department" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">職稱</label>
+                        <input asp-for="JobPosition" class="form-control" />
+                        <span asp-validation-for="JobPosition" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">直屬長官</label>
+                        <input asp-for="LineManager" class="form-control" />
+                        <span asp-validation-for="LineManager" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">薪資</label>
+                        <input asp-for="Salary" class="form-control" />
+                        <span asp-validation-for="Salary" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label class="control-label">大頭照</label><br />
+                        <img src="~/images/StaffImages/@Model.Image" name="Image" id="imgPerson" width="140px" height="140px"><br />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <span class="d-flex justify-content-center" style="position:relative;left:70px">
+                            <input type="file" name="photo" id="imgPersonUpload" />
+                        </span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">到職日期</label>
+                        <input type="date" id="DateOfEmployment" name="DateOfEmployment" class="form-control" value=@DateOfEmployment min="1923-01-01" max=@DOEMaxdate readonly="readonly" unselectable="on" style="background:lightgray" />
+                        <span asp-validation-for="DateOfEmployment" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">離職日期</label>
+                        <input type="date" id="TerminationDate" name="TerminationDate" class="form-control" value=@TerminationDate min="1923-01-01" max=@TimeNow />
+                        <span asp-validation-for="TerminationDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">在職狀態</label><br />
+                        @Html.DropDownList("State", (List<SelectListItem>
+                        )ViewBag.JobStateType, new { @style="width:164px"})
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="儲存修改" class="btn btn-primary mx-3" />
+                <a asp-action="List" class="btn btn-danger mx-3">回上一頁</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        //照片上傳時動態顯示於網頁上
+        $("#imgPersonUpload").change(function () {
+            ReadImgURL(this);
+        })
+
+        function ReadImgURL(input) {
+            if (input.files && input.files[0]) {//需要先判斷是否有上傳檔案
+                let reader = new FileReader;//FileReader為內建file讀取事件
+                reader.onload = function (event) {//此處.onload為FileReader加載檔案時取得load的值
+                    $("#imgPerson").attr("src", event.target.result);//修改src值為指定連結
+                }
+                reader.readAsDataURL(input.files[0]);//讓修改後的src URL動態載入並編碼
+                //.onload需要先定義，readAsDataURL才有辦法知道檔案類型，並將input.file[0]轉換成瀏覽器讀得懂的語言，才能正常顯示在網頁上
+            }
+        }
+                        //照片上傳時動態顯示於網頁上-end
+    </script>
+
+}

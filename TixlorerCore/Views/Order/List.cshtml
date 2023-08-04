@@ -1,0 +1,117 @@
+﻿@model IEnumerable<TixlorerCore.Models.Order>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+
+
+<div class="container">
+
+    <h1 class="d-flex justify-content-center">訂單管理</h1>
+    <p>
+        @Html.ActionLink("新增訂單", "Create", "Order",null,
+        new { @class = "btn btn-outline-primary" })
+    </p>
+    @using (Html.BeginForm())
+    {
+        <p>
+            關鍵字搜尋 @Html.TextBox("OrderKeyword")
+            <input type="submit" value="查詢" class="" />
+        </p>
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    訂單編號
+                </th>
+                <th>
+                    會員編號
+                </th>
+                <th>
+                    訂單金額
+                </th>
+                <th>
+                    訂單日期
+                </th>
+                <th>
+                    結單日期
+                </th>
+                <th>
+                    訂單狀態
+                </th>
+                <th>訂單明細</th>
+                <th>訂單修改</th>
+                <th>訂單刪除</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                string strState = string.Empty;
+                if (item.State == 0)
+                    strState = "未付款";
+                else if (item.State == 1)
+                    strState = "已付款";
+                else if (item.State == 2)
+                    strState = "已取票";
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Totalprice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Orderdate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderdateEnd)
+                    </td>
+                    <td> @Html.DisplayFor(modelItem => strState)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("明細", "defail", "Order", new { id = item.OrderId },
+                    new { @class = "btn btn-success" })
+                    </td>
+                    <td>
+                        @{
+                            if (item.State == 0)
+                            {
+                                @Html.ActionLink("修改", "Edit", "Order", new { id = item.OrderId },
+                    new { @class = "btn btn-success" })
+
+                            }
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("刪除", "Delete", "Order", new { id = item.OrderId },
+                    new { onclick = "return confirm('請問確定要刪除嗎?')", Class = "btn btn-danger me-2" })
+                    </td>
+                            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<nav aria-label="Page navigation example" class="d-flex justify-content-center">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<TixlorerCore.ViewModels.CouponUseRecordVM>
+
+@{
+    ViewData["Title"] = "List";
+}
+<h2 class="d-flex justify-content-center mt-3">優惠券使用紀錄</h2>
+<div class="d-flex justify-content-center mt-3">
+    @using (Html.BeginForm())
+    {
+        <p>
+            關鍵字 @Html.TextBox("txtKeyword") <input class="btn btn-secondary ms-3" type="submit" value="查詢" />
+        </p>
+    }
+</div>
+<table class="table table-hover">
+    <thead class="table-secondary">
+        <tr>
+            <th>
+                會員ID
+            </th>
+            <th>
+                會員姓名
+            </th>
+            <th>
+                使用日期
+            </th>
+            <th>
+                訂單編號
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

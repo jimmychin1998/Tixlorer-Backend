@@ -1,0 +1,161 @@
+﻿@model IEnumerable<TixlorerCore.Models.Ticket>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<div style="position: absolute; top: 50px; left: 50px;">
+    <h1>票券資料一覽表</h1>
+    @using (Html.BeginForm())
+    {
+        <p>
+            關鍵字 @Html.TextBox("txtTicketKeyword")  <input type="submit" value="查詢" />
+        </p>
+    }
+    <p>
+        <a asp-action="Create" class="btn btn-primary">新增票券</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    票券編號
+                    <br/>
+                    @Html.DisplayNameFor(model => model.TicketId)
+                </th>
+                <th>
+                    目的地編號
+                    <br />
+                    @Html.DisplayNameFor(model => model.DestId)
+                </th>
+                <th>
+                    票券編號
+                    <br />
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    票券類型
+                    <br />
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th>
+                    票券人數
+                    <br />
+                    @Html.DisplayNameFor(model => model.Capacity)
+                </th>
+                <th>
+                    價格
+                    <br />
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    折扣後價格
+                    <br />
+                    @Html.DisplayNameFor(model => model.DiscountPrice)
+                </th>
+                <th>
+                    使用期限
+                    <br />
+                    @Html.DisplayNameFor(model => model.Deadline)
+                </th>
+                <th>
+                    票券描述
+                    <br />
+                    @Html.DisplayNameFor(model => model.Desc)
+                </th>
+                <th>
+                    票券庫存量
+                    <br />
+                    @Html.DisplayNameFor(model => model.StockNumber)
+                </th>
+                <th>
+                    商品上架時間
+                    <br />
+                    @Html.DisplayNameFor(model => model.OnShelf)
+                </th>
+                <th>
+                    商品下架時間
+                    <br />
+                    @Html.DisplayNameFor(model => model.OffShelf)
+                </th>
+                <th>
+                    供應商編號
+                    <br />
+                    @Html.DisplayNameFor(model => model.SupplierId)
+                </th>
+                <th>
+                    票券狀態
+                    <br />
+                    @Html.DisplayNameFor(model => model.State)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                string destID = null;
+                if (string.IsNullOrEmpty(item.DestId))
+                {
+                    destID = "123";
+                }
+                else
+                {
+                    destID = item.DestId;
+                }
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DestId )
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Capacity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Deadline)
+                    </td>
+                    <td style="max-width: 15em; word-wrap: break-word; font-size: 12px;">
+                        @Html.DisplayFor(modelItem => item.Desc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StockNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OnShelf)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OffShelf)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SupplierId )
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+
+                        @Html.ActionLink("修改", "Edit", "Ticket", new { id = item.TicketId },
+                    new { @class = "btn btn-success" })
+                        @Html.ActionLink("刪除", "Delete", "Ticket", new { id = item.TicketId },
+                    new { onclick = "return confirm('確定要刪除嗎?')", Class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

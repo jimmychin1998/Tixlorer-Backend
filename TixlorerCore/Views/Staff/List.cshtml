@@ -1,0 +1,129 @@
+﻿@model IEnumerable<TixlorerCore.Models.Staff>
+
+@{
+    ViewData["Title"] = "List";
+}
+@section styles{
+
+    <style>
+        .sortTitle:hover {
+            background-color: #9EE3E8;
+        }
+
+        .sortText {
+            color: black;
+        }
+    </style>
+}
+<div class="container align-center" style="width:100%;height:100%;">
+    <div class="row mx-auto justify-content-center" style="position:relative;top:30px">
+        <h2 class="mb-3">員工資料管理</h2>
+        @using (Html.BeginForm(FormMethod.Post, new { @class = "col-auto mb-3"}))
+        {
+            <span>
+                <span class="mx-2">條件搜尋</span>
+                @Html.DropDownList("txtConditionType", (List<SelectListItem>
+            )ViewBag.ConditionType, new {})
+                @Html.TextBox("txtKeyword", null,new {})  
+                <input type="submit" value="查詢" class="btn btn-primary mx-2"/>
+            </span>
+
+        }
+        <span class="col-auto mb-3">
+            <a asp-action="Create" class="btn btn-primary mx-3">新建員工</a>
+        </span>
+        <table class="table table-striped table-hover border">
+            <thead>
+                <tr class="table-primary">
+                    <th class="border sortTitle">
+                        @Html.ActionLink("員工編號", "List", "Staff", new { sortBy = ViewBag.sortById },new { @class="sortText", id="sortText" })
+                    </th>
+                    <th class="border sortTitle">
+                        @Html.ActionLink("員工姓名", "List", "Staff", new { sortBy = ViewBag.sortByName },new { @class="sortText", id="sortText" })
+                    </th>
+                    <th class="border">
+                        性別
+                    </th>
+                    <th class="border">
+                        聯絡電話
+                    </th>
+                    <th class="border">
+                        電子信箱
+                    </th>
+                    <th class="border sortTitle">
+                        @Html.ActionLink("所屬部門", "List", "Staff", new { sortBy = ViewBag.sortByDepartment },new { @class="sortText", id="sortText" })
+                    </th>
+                    <th class="border sortTitle">
+                        @Html.ActionLink("職稱", "List", "Staff", new { sortBy = ViewBag.sortByJobPosition },new { @class="sortText", id="sortText" })
+                    </th>
+                    <th class="border sortTitle">
+                        @Html.ActionLink("到職日期", "List", "Staff", new { sortBy = ViewBag.sortByDOE },new { @class="sortText", id="sortText" })
+                    </th>
+                    <th class="border sortTitle">
+                        @Html.ActionLink("在職狀態", "List", "Staff", new { sortBy = ViewBag.sortByState },new { @class="sortText", id="sortText" })
+                    </th>
+                    <th class="border">
+                        操作
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model)
+                    {
+                        //切換出生年月日顯示方式
+                        string DOEdatas = @item.DateOfEmployment.Year.ToString() + " 年 " + @item.DateOfEmployment.Month.ToString() + " 月 " + @item.DateOfEmployment.Day.ToString() + " 日";
+                        //性別數值轉換成文字
+                        string strSex = string.Empty;
+                        if (item.Sex == 0)
+                            strSex = "男";
+                        else if (item.Sex == 1)
+                            strSex = "女";
+                            //onclick事件為點擊欲察看詳細內容的資料時，直接進入詳細資料修改(Staff/Edit)頁面
+                        <tr onclick="javascript:location.href='/Staff/Edit/@item.SId'">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => strSex)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Phone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Department)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JobPosition)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => DOEdatas)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.State)
+                            </td>
+                            <td>
+                                @Html.ActionLink("刪除", "Delete", "Staff", new { id = item.SId },
+                        new { onclick = "return confirm('確定要刪除嗎?')", Class = "btn btn-danger" })
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        //選擇器選擇ID的情況下，更改樣式只會套用到第一個ID的標籤上，故此處用Class來選取(未完成)
+        $(".sortText").append("&#9660;")
+
+    </script>
+}

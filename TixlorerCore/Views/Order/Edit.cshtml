@@ -1,0 +1,70 @@
+﻿@model TixlorerCore.Models.Order
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<link href="~/css/bksystem.css" rel="stylesheet" type="text/css" />
+<link href="~/css/module.css" rel="stylesheet" type="text/css" />
+<link href="~/css/loaders.css" rel="stylesheet" type="text/css" />
+<link href="~/skin/black/skin.css"
+      rel="stylesheet"
+      type="text/css"
+      id="skin" />
+<link href="~/font/iconfont.css" rel="stylesheet" type="text/css" />
+<h1 class="d-flex justify-content-center">修改訂單</h1>
+<div class="container">
+    <hr />
+    <div class="row">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-4">
+                <label asp-for="OrderId" class="control-label"></label>
+                <input asp-for="OrderId" class="form-control" readonly />
+                <span asp-validation-for="OrderId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="MId" class="control-label"></label>
+                <input asp-for="MId" class="form-control" readonly />
+                <span asp-validation-for="MId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="Totalprice" class="control-label"></label>
+                <input asp-for="Totalprice" class="form-control" />
+                <span asp-validation-for="Totalprice" class="text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="Orderdate" class="control-label"></label>
+                <input asp-for="Orderdate" class="form-control" />
+                <span asp-validation-for="Orderdate" class="text-danger"></span>
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="OrderdateEnd" class="control-label"></label>
+                <input asp-for="OrderdateEnd" class="form-control" />
+                <span asp-validation-for="OrderdateEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">訂單狀態</label><br />
+                <select asp-for="State" style="width:33%;height:30px" class="mb-3">
+                    <option value="0">未付款</option>
+                    <option value="1">已付款</option>
+                    <option value="2">已取票</option>
+                </select>
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="儲存" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="List">離開</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

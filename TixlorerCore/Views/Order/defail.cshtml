@@ -1,0 +1,65 @@
+﻿@model TixlorerCore.Models.OrderDetail
+
+@{
+    ViewData["Title"] = "defail";
+}
+
+<h1>defail</h1>
+
+<div>
+    <h4>OrderDetail</h4>
+    <hr />
+    <dl class="row ">
+        <dt class="col-sm-2 mb-2">
+            訂單明細編號
+        </dt>
+        <dd class="col-sm-10 mb-2">
+            @Html.DisplayFor(model => model.OdId)
+        </dd>
+        <dt class="col-sm-2 mb-2">
+           訂單編號
+        </dt>
+        <dd class="col-sm-10 mb-2">
+            @Html.DisplayFor(model => model.OrderId)
+        </dd>
+        <dt class="col-sm-2 mb-2">
+            商品類型
+        </dt>
+        <dd class="col-sm-10 mb-2">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt class="col-sm-2 mb-2">
+            群組編號
+        </dt>
+        <dd class="col-sm-10 mb-2">
+            @Html.DisplayFor(model => model.GroupId)
+        </dd>
+        <dt class="col-sm-2 mb-2">
+            商品編號
+        </dt>
+        <dd class="col-sm-10 mb-2">
+            @Html.DisplayFor(model => model.PId)
+        </dd>
+        <dt class="col-sm-2 mb-2">
+           票券編號
+        </dt>
+@*        <dd class="col-sm-10 mb-2">
+            @Html.DisplayFor(model => model.TicketId)
+        </dd>
+        <dt class="col-sm-2 mb-2">
+            購買數量
+        </dt>
+        <dd class="col-sm-10 mb-2">
+            @Html.DisplayFor(model => model.Count)
+        </dd>
+        <dt class="col-sm-2 mb-2">
+            購買總金額
+        </dt>
+        <dd class="col-sm-10 mb-2">
+            @Html.DisplayFor(model => model.Totalprice)
+        </dd>*@
+    </dl>
+</div>
+<div>
+    <a asp-action="List">離開</a>
+</div>

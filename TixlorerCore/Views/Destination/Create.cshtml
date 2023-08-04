@@ -1,0 +1,132 @@
+﻿@model TixlorerCore.Models.Destination
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@section styles{
+
+    <style>
+        .form-control {
+            position: relative;
+            width: 164px;
+            height: 35px;
+            left: 50%;
+            transform: translate(-50%,0);
+        }
+    </style>
+
+}
+@{
+    //初始化日期相關選擇項目預設值為當前年月日
+    string TimeNow = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+}
+<div class="container align-center" style="width:100%;height:100%">
+    <div class="row mx-auto" style="position:relative;top:30px">
+        <h2 class ="mb-3">新建目的地資料</h2>
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div class="form-horizontal d-flex">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label class="control-label">目的地名稱</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">目的地類型</label><br />
+                        @Html.DropDownList("Type", (List<SelectListItem>
+                        )ViewBag.ConditionType, new { @style="width:164px"})
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">所在縣市</label>
+                        <input asp-for="County" class="form-control" />
+                        <span asp-validation-for="County" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">聯絡電話</label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">地址</label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">經度</label>
+                        <input asp-for="Longitude" class="form-control" />
+                        <span asp-validation-for="Longitude" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">緯度</label>
+                        <input asp-for="Latitude" class="form-control" />
+                        <span asp-validation-for="Latitude" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label class="control-label">目的地照片</label><br />
+                        <img src="~/images/DestImages/NoImage.png" name="Image" id="imgDest" width="300px" height="200px"><br />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        @*照片上傳使用*@
+                        <span class="d-flex justify-content-center" style="position:relative;left:70px">
+                            <input type="file" name="photo" id="imgDestUpload" />
+                        </span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">上架時間</label>
+                        <input asp-for="OnShelf" class="form-control" type="date" min=@TimeNow value=@TimeNow />
+                        <span asp-validation-for="OnShelf" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">下架時間</label>
+                        <input asp-for="OffShelf" class="form-control" type="date" min=@TimeNow />
+                        <span asp-validation-for="OffShelf" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">外部連結網址</label>
+                        <input asp-for="Url" class="form-control" />
+                        <span asp-validation-for="Url" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">目的地敘述</label>
+                        <textarea name="Desc" class="form-control overflow-auto" style="width:164px;height:105px" /></textarea>
+                        <span asp-validation-for="Desc" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="創建目的地" class="btn btn-primary" />
+                <a asp-action="List" class="btn btn-danger mx-3">回上一頁</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        //照片上傳時動態顯示於網頁上
+        $("#imgDestUpload").change(function () {
+            ReadImgURL(this);
+        })
+
+        function ReadImgURL(input) {
+            if (input.files && input.files[0]) {//需要先判斷是否有上傳檔案
+                let reader = new FileReader;//FileReader為內建file讀取事件
+                reader.onload = function (event) {//此處.onload為FileReader加載檔案時取得load的值
+                    $("#imgDest").attr("src", event.target.result);//修改src值為指定連結
+                }
+                reader.readAsDataURL(input.files[0]);//讓修改後的src URL動態載入並編碼
+                //.onload需要先定義，readAsDataURL才有辦法知道檔案類型，並將input.file[0]轉換成瀏覽器讀得懂的語言，才能正常顯示在網頁上
+            }
+        }
+                 //照片上傳時動態顯示於網頁上-end
+    </script>
+}

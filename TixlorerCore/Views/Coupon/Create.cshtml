@@ -1,0 +1,59 @@
+﻿@model TixlorerCore.Models.Coupon
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="mt-5 mx-5 d-flex justify-content-center">建立優惠券</h1>
+
+<h5 class="mx-5 d-flex justify-content-center">請輸入優惠券資訊</h5>
+<hr />
+<div class="row mx-5 d-flex justify-content-center">
+    <div class="col-5">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">優惠券名稱</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PId" class="control-label">適用商品</label>
+                <input asp-for="PId" class="form-control" />
+                <span asp-validation-for="PId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiscountType" class="control-label">折扣類型</label>
+                <select asp-for="DiscountType" class="form-select">
+                    <option selected>請選擇折扣類型</option>
+                    <option value="0">金額折扣</option>
+                    <option value="1">百分比折扣</option>
+                </select>
+                <span asp-validation-for="DiscountType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Discount" class="control-label">折扣額度</label>
+                <input asp-for="Discount" class="form-control" />
+                <span asp-validation-for="Discount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsableDay" class="control-label">可用天數</label>
+                <input asp-for="UsableDay" class="form-control" />
+                <span asp-validation-for="UsableDay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExpirationDate" class="control-label">使用期限</label>
+                <input asp-for="ExpirationDate" class="form-control" />
+                <span asp-validation-for="ExpirationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="確認建立" class="btn btn-primary mt-3 float-start" />
+                <a asp-action="List" class="ms-5 mt-3 btn btn-secondary float-end">取消並返回</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

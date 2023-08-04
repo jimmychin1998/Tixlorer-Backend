@@ -1,0 +1,95 @@
+﻿@model IEnumerable<TixlorerCore.Models.Supplier>
+
+@{
+    ViewData["Title"] = "List";
+}
+<div class="container">
+<h1 class="d-flex justify-content-center">查詢廠商</h1>
+<hr />
+<p>
+    @Html.ActionLink("查詢模式", "List", "Suppliers",null,
+    new { @class = "btn btn-outline-primary" })
+    @Html.ActionLink("新增模式", "Create", "Suppliers",null,
+    new { @class = "btn btn-outline-primary" })
+</p>
+@using(Html.BeginForm()){
+<p>
+        關鍵字搜尋 @Html.TextBox("Keyword")
+    <input type="submit" value="查詢" class="" />
+</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                廠商編號
+            </th>
+            <th>
+                廠商名稱
+            </th>
+            <th>
+                廠商電話
+            </th>
+            <th>
+                廠商信箱
+            </th>
+            <th>
+                所在縣市
+            </th>
+            <th>
+                地址
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.County)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.ActionLink("修改", "Edit", "Suppliers", new { id = item.SupplierId },
+                new { @class = "btn btn-success" }) |
+                    @Html.ActionLink("刪除", "Delete", "Suppliers", new { id = item.SupplierId },
+                new { onclick = "return confirm('請問確定要刪除嗎?')", Class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<nav aria-label="Page navigation example" class="d-flex justify-content-center">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+</div>

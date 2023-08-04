@@ -1,0 +1,180 @@
+﻿@model TixlorerCore.TicketViewModels.TicketViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    List<string> TicketType = new List<string> { "活動", "景點", "飯店", "餐廳" };
+    List<string> TicketState = new List<string> { "未上架", "已上架", "已下架" };
+}
+
+<div style="position: absolute; top: 20px; left: 100px;">
+    <h1>新增票券</h1>
+    <h4>請輸入票券資訊並確認格式是否正確</h4>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div style="position: absolute; top: 130px; left: 100px;">
+                @*<div class="form-group">
+                <label asp-for="TicketId" class="control-label"></label>
+                <input asp-for="TicketId" class="form-control" />
+                <span asp-validation-for="TicketId" class="text-danger"></span>
+                </div>*@
+               
+                @*<div class="form-group">
+                    <label asp-for="DestId" class="control-label">目的地編號</label>
+                    <input asp-for="DestId" class="form-control" />
+                    <span asp-validation-for="DestId" class="text-danger"></span>
+                </div>*@
+
+                <div>
+                    目的地編號
+                    <select name="Tic.DestId">
+                        @foreach (var item in Model.DestIds)
+                        {
+                                <option value="@item">@item</option>
+                        }
+                    </select>
+                </div>
+
+                <br>
+                <div class="form-group">
+                    <label asp-for="Tic.Name" class="control-label">票券名稱</label>
+                    <input asp-for="Tic.Name" class="form-control" />
+                    <span asp-validation-for="Tic.Name" class="text-danger"></span>
+                </div>
+                <br>
+
+                <div>
+                    票券類型
+                    <select name="Tic.Type">
+                        @for (int i = 0; i < TicketType.Count; i++)
+                        {
+                                <option value="@i">@TicketType[i]</option>
+                        }
+                    </select>
+                </div>
+
+                @*<div class="form-group">
+                    <label asp-for="Tic.Type" class="control-label">票券類型</label>
+                    <input asp-for="Tic.Type" class="form-control" />
+                    <span asp-validation-for="Tic.Type" class="text-danger"></span>
+                </div>*@
+                <br>
+                <div class="form-group">
+                    <label asp-for="Tic.Capacity" class="control-label">票券人數</label>
+                    <input asp-for="Tic.Capacity" class="form-control" />
+                    <span asp-validation-for="Tic.Capacity" class="text-danger"></span>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label asp-for="Tic.Price" class="control-label">價格</label>
+                    <input asp-for="Tic.Price" class="form-control" />
+                    <span asp-validation-for="Tic.Price" class="text-danger"></span>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label asp-for="Tic.DiscountPrice" class="control-label">折扣後價格</label>
+                    <input asp-for="Tic.DiscountPrice" class="form-control" />
+                    <span asp-validation-for="Tic.DiscountPrice" class="text-danger"></span>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label asp-for="Tic.Deadline" class="control-label">使用期限</label>
+                    <input asp-for="Tic.Deadline" class="form-control" />
+                    <span asp-validation-for="Tic.Deadline" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div style="position: absolute; top: 130px; left: 400px;">
+                <div class="form-group">
+                    <label asp-for="Tic.Desc" class="control-label">票券描述</label>
+                    <textarea asp-for="Tic.Desc" class="form-control" rows="3" style="overflow:auto;"></textarea>
+                    <span asp-validation-for="Tic.Desc" class="text-danger"></span>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label asp-for="Tic.StockNumber" class="control-label">票券庫存量</label>
+                    <input asp-for="Tic.StockNumber" class="form-control" />
+                    <span asp-validation-for="Tic.StockNumber" class="text-danger"></span>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label asp-for="Tic.OnShelf" class="control-label">商品上架時間</label>
+                    <input asp-for="Tic.OnShelf" class="form-control" />
+                    <span asp-validation-for="Tic.OnShelf" class="text-danger"></span>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label asp-for="Tic.OffShelf" class="control-label">商品下架時間</label>
+                    <input asp-for="Tic.OffShelf" class="form-control" />
+                    <span asp-validation-for="Tic.OffShelf" class="text-danger"></span>
+                </div>
+                <br>
+
+                <div>
+                    供應商編號
+                    <select name="Tic.SupplierId">
+                        @foreach (var item in Model.SupplierIds)
+                        {
+                                <option value="@item">@item</option>
+                        }
+                    </select>
+                </div>
+
+                @*<div class="form-group">
+                    <label asp-for="Tic.SupplierId" class="control-label">供應商編號</label>
+                    <input asp-for="Tic.SupplierId" class="form-control" />
+                    <span asp-validation-for="Tic.SupplierId" class="text-danger"></span>
+                </div>*@
+               
+                <br>
+
+                <div>
+                    票券狀態
+                    <select name="Tic.State">
+                        @for (int i = 0; i < TicketState.Count; i++)
+                        {
+                                <option value="@i">@TicketState[i]</option>                           
+                        }
+                    </select>
+                </div>
+
+                @*<div class="form-group">
+                    <label asp-for="Tic.State" class="control-label">票券狀態</label>
+                    <input asp-for="Tic.State" class="form-control" />
+                    <span asp-validation-for="Tic.State" class="text-danger"></span>
+                </div>*@
+
+            </div>
+            <div class="form-group" style="position: absolute; top: 730px; left: 200px;">
+                <input type="submit" value="儲存" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="position: absolute; top: 130px; left: 700px;">
+    <p>
+        票券類型：0=活動、1=景點、2=飯店、3=餐廳
+    </p>
+    <p>
+        票券狀態：0 = 未上架、1=已上架、2=已下架
+    </p>
+    <p>
+        票券庫存量若改為0儲存時會自動將票券狀態改為2(已下架)
+    </p>
+</div>
+
+<div>
+    <a asp-action="List" class="btn btn-danger" style="position: absolute; top: 730px; left: 100px;">取消</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,116 @@
+﻿@model TixlorerCore.Models.Member
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@section styles{
+
+    <style>
+        .form-control {
+            position: relative;
+            width: 164px;
+            height: 35px;
+            left: 50%;
+            transform: translate(-50%,0);
+        }
+    </style>
+
+}
+@{
+    //初始化生日最大可選擇日期為當前年月日
+    string TimeNow = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+    //初始化生日最小可選擇日期，值為當前年分-110
+    string birthdayMin = (DateTime.Now.Year - 110) + "-" + string.Format("{0:MM-dd}", DateTime.Now);
+}
+<div class="container align-center" style="width:100%;height:100%">
+    <div class="row mx-auto" style="position:relative;top:30px">
+        <h2 class="mb-3">編輯會員資料</h2>
+        <form asp-action="Edit">
+            <div class="form-horizontal d-flex">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label class="control-label">會員編號</label>
+                        <input asp-for="MId" class="form-control" readonly="readonly" unselectable="on" />
+                        <span asp-validation-for="MId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">會員姓名</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">電子信箱</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">聯絡電話</label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">會員密碼</label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">性別</label><br />
+                        <span class="mx-3">@Html.RadioButton("Sex", "0", true , new{})男</span>
+                        <span class="mx-3">@Html.RadioButton("Sex", "1", false , new{})女</span>
+                        <span class="mx-3">@Html.RadioButton("Sex", "2", false , new{})隱藏</span>
+                        <span asp-validation-for="Sex" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label class="control-label">生日</label>
+                        <input asp-for="Birthday" class="form-control" type="date" max=@TimeNow min=@birthdayMin />
+                        <span asp-validation-for="Birthday" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">居住地址</label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">信用卡卡號</label>
+                        <input asp-for="Credit" class="form-control" readonly="readonly" unselectable="on" />
+                        <span asp-validation-for="Credit" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">最愛內容</label>
+                        <input asp-for="Favorite" class="form-control" />
+                        <span asp-validation-for="Favorite" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">紅利點數</label>
+                        <input asp-for="BonusPoint" class="form-control" />
+                        <span asp-validation-for="BonusPoint" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">註冊日期</label>
+                        <input asp-for="RegisterDate" class="form-control" type="date" readonly="readonly" unselectable="on" />
+                        <span asp-validation-for="RegisterDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">最後登入日期</label>
+                        <input asp-for="LastLoginDate" class="form-control" type="date" readonly="readonly" unselectable="on" />
+                        <span asp-validation-for="LastLoginDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="儲存修改" class="btn btn-primary mx-3" />
+                <a asp-action="List" class="btn btn-danger mx-3">回上一頁</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
